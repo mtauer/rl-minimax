@@ -1,13 +1,13 @@
 import isEmpty from 'lodash/isEmpty';
 
-const E = '.';
-const X = 'X';
-const O = 'O';
+export const E = '.';
+export const X = 'X';
+export const O = 'O';
 
 const initialState = {
   board: [
-    X, O, O,
-    X, E, O,
+    E, E, E,
+    E, E, E,
     E, E, E,
   ],
   currentPlayer: X,
