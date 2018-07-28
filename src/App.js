@@ -19,12 +19,14 @@ const Title = styled.h1`
 
 class App extends Component {
   render() {
-    const values = minimax(undefined, ticTacToe);
-    console.log('ticTacToe values', values);
+    const nextActionValues = minimax(undefined, ticTacToe);
     return (
       <Container>
         <Title>Tic Tac Toe</Title>
-        <TicTacToeBoard gameState={ticTacToe.initialState} />
+        <TicTacToeBoard
+          gameState={ticTacToe.initialState}
+          nextActionValues={nextActionValues}
+        />
       </Container>
     );
   }
