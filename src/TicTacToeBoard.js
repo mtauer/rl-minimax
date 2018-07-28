@@ -35,7 +35,7 @@ const ActionValue = styled.div`
 
 const valueColor = scaleLinear().domain([-1.0, 1.0])
   .interpolate(interpolateHcl)
-  .range([rgb('#d73027'), rgb('#1a9850')]);
+  .range([rgb('#a50026'), rgb('#1a9850')]);
 
 const TicTacToeBoard = ({ gameState, nextActionValues }) => {
   const bestNextAction = maxBy(nextActionValues, o => o.value);
@@ -45,8 +45,12 @@ const TicTacToeBoard = ({ gameState, nextActionValues }) => {
         const nextActionValue = nextActionValues ?
           first(nextActionValues.filter(o => o.action.index === i)) :
           null;
-        const cellBgColor = nextActionValue ? valueColor(nextActionValue.value) : '#f5f5f5';
-        const cellBorder = nextActionValue.action === bestNextAction.action ? '3px solid #ffffff' : 0;
+        const cellBgColor = nextActionValue ?
+          valueColor(nextActionValue.value) :
+          '#f5f5f5';
+        const cellBorder = nextActionValue && nextActionValue.action === bestNextAction.action ?
+          '8px solid #006837' :
+          '0';
         return (
           <Cell key={`board-cell-${i}`} style={{ backgroundColor: cellBgColor, border: cellBorder }}>
             <CellLabel>{v}</CellLabel>

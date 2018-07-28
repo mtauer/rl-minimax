@@ -25,8 +25,8 @@ class App extends Component {
   render() {
     const initialState = {
       board: [
-        E, E, E,
-        E, E, E,
+        E, O, E,
+        E, E, X,
         E, E, E,
       ],
       currentPlayer: X,
