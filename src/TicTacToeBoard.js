@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import first from 'lodash/first';
+import { scaleLinear } from 'd3-scale';
+import { rgb } from 'd3-color';
+import { interpolateHcl } from 'd3-interpolate';
 
 const Board = styled.div`
   display: grid;
@@ -22,12 +25,16 @@ const CellLabel = styled.div`
   flex: 1;
 `;
 const ActionValue = styled.div`
-  bottom: 0;
+  bottom: 4px;
   font-size: 12px;
   left: 0;
   position: absolute;
   right: 0;
 `;
+
+const valueColor = scaleLinear().domain([-1.0, 1.0])
+  .interpolate(interpolateHcl)
+  .range([rgb('#d73027'), rgb('#1a9850')]);
 
 const TicTacToeBoard = ({ gameState, nextActionValues }) => (
   <Board>
@@ -35,8 +42,9 @@ const TicTacToeBoard = ({ gameState, nextActionValues }) => (
       const nextActionValue = nextActionValues ?
         first(nextActionValues.filter(o => o.action.index === i)) :
         null;
+      const cellBgColor = nextActionValue ? valueColor(nextActionValue.value) : '#f5f5f5';
       return (
-        <Cell key={`board-cell-${i}`}>
+        <Cell key={`board-cell-${i}`} style={{ backgroundColor: cellBgColor }}>
           <CellLabel>{v}</CellLabel>
           { nextActionValue &&
             <ActionValue>{nextActionValue.value}</ActionValue>
