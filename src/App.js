@@ -8,13 +8,13 @@ import TicTacToeBoard from './TicTacToeBoard';
 const Container = styled.div`
   background-color: #ffffff;
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 800px;
   min-height: 100vh;
   padding: 32px 32px;
 `;
 const Title = styled.h1`
   margin: 0;
-  padding: 0 0 16px 0;
+  padding: 0 0 8px 0;
 `;
 const Description = styled.p`
   font-size: 12px;
@@ -25,8 +25,8 @@ class App extends Component {
   render() {
     const initialState = {
       board: [
-        X, O, O,
-        X, E, O,
+        E, E, E,
+        E, E, E,
         E, E, E,
       ],
       currentPlayer: X,

@@ -47,7 +47,7 @@ const TicTacToeBoard = ({ gameState, nextActionValues }) => (
         <Cell key={`board-cell-${i}`} style={{ backgroundColor: cellBgColor }}>
           <CellLabel>{v}</CellLabel>
           { nextActionValue &&
-            <ActionValue>{nextActionValue.value}</ActionValue>
+            <ActionValue>{nextActionValue.value.toFixed(3)}</ActionValue>
           }
         </Cell>
       );
