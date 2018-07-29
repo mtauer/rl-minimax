@@ -13,12 +13,13 @@ const Container = styled.div`
   padding: 32px 32px;
 `;
 const Title = styled.h1`
+  font-family: 'IBM Plex Sans', sans-serif;
   margin: 0;
   padding: 0 0 8px 0;
 `;
 const Description = styled.p`
-  font-size: 12px;
   padding: 0 0 32px 0;
+  font-family: 'IBM Plex Serif', serif;
 `;
 
 class App extends Component {
