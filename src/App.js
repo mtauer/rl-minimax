@@ -34,6 +34,7 @@ const App = ({ initialGameState }) => {
       <TicTacToeBoard
         gameState={initialGameState}
         size="small"
+        onCellClick={(index) => console.log('onCellClick', index)}
       />
       <Description>The displayed action values are optimized to help <strong>X</strong> win. Next turn is <strong>X</strong>.</Description>
       <TicTacToeBoard

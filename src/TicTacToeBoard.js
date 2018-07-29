@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import first from 'lodash/first';
 import maxBy from 'lodash/maxBy';
@@ -18,9 +19,15 @@ const Board = styled.div`
 `;
 const Cell = styled.div`
   align-items: center;
+  cursor: ${props => props.isClickable ? 'pointer' : 'default'};
   display: flex;
   position: relative;
   text-align: center;
+  user-select: ${props => props.isClickable ? 'none' : 'inherit'};
+
+  &:hover {
+    background: #f5f5f5;
+  }
 `;
 const CellLabel = styled.div`
   display: block;
@@ -34,7 +41,12 @@ const CellValue = styled.div`
   right: 0;
 `;
 
-const TicTacToeBoard = ({ gameState, nextActionValues, size }) => {
+const TicTacToeBoard = ({
+  gameState,
+  nextActionValues,
+  size,
+  onCellClick
+}) => {
   const bestNextAction = maxBy(nextActionValues, o => o.value);
   return (
     <Board size={size}>
@@ -48,6 +60,8 @@ const TicTacToeBoard = ({ gameState, nextActionValues, size }) => {
           <Cell
             key={`board-cell-${i}`}
             style={{ backgroundColor: cellBgColor, border: cellBorder }}
+            isClickable={Boolean(onCellClick)}
+            onClick={() => onCellClick && onCellClick(i)}
           >
             <CellLabel>
               {v}
@@ -64,7 +78,7 @@ const TicTacToeBoard = ({ gameState, nextActionValues, size }) => {
   );
 
   function getCellBgColor(nextActionValue) {
-    if (!nextActionValues) { return '#ffffff'; }
+    if (!nextActionValues) { return null; }
 
     const valueColor = scaleLinear().domain([-1.0, 0.0, 1.0])
       .interpolate(interpolateHcl)
@@ -77,6 +91,17 @@ const TicTacToeBoard = ({ gameState, nextActionValues, size }) => {
       '8px solid #006837' :
       '0';
   }
+};
+TicTacToeBoard.propTypes = {
+  gameState: PropTypes.object.isRequired,
+  nextActionValues: PropTypes.array,
+  size: PropTypes.string,
+  onCellClick: PropTypes.func,
+};
+TicTacToeBoard.defaultProps = {
+  nextActionValues: null,
+  size: '',
+  onCellClick: null,
 };
 
 export default TicTacToeBoard;
