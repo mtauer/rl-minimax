@@ -8,16 +8,17 @@ import { interpolateHcl } from 'd3-interpolate';
 
 const Board = styled.div`
   display: grid;
+  font-size: ${props => props.size === 'small' ? '18px' : '24px'};
   grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-rows: 100px;
+  grid-auto-rows: ${props => props.size === 'small' ? '30px' : '100px'};
   grid-gap: 1px;
   justify-items: stretch;
-  width: 300px;
+  padding: 0 0 32px 0;
+  width: ${props => props.size === 'small' ? '90px' : '300px'};
 `;
 const Cell = styled.div`
   align-items: center;
   display: flex;
-  font-size: 24px;
   position: relative;
   text-align: center;
 `;
@@ -25,7 +26,7 @@ const CellLabel = styled.div`
   display: block;
   flex: 1;
 `;
-const ActionValue = styled.div`
+const CellValue = styled.div`
   bottom: 4px;
   font-size: 12px;
   left: 0;
@@ -33,35 +34,49 @@ const ActionValue = styled.div`
   right: 0;
 `;
 
-const valueColor = scaleLinear().domain([-1.0, 1.0])
-  .interpolate(interpolateHcl)
-  .range([rgb('#a50026'), rgb('#1a9850')]);
-
-const TicTacToeBoard = ({ gameState, nextActionValues }) => {
+const TicTacToeBoard = ({ gameState, nextActionValues, size }) => {
   const bestNextAction = maxBy(nextActionValues, o => o.value);
   return (
-    <Board>
+    <Board size={size}>
       { gameState.board.map((v, i) => {
         const nextActionValue = nextActionValues ?
           first(nextActionValues.filter(o => o.action.index === i)) :
           null;
-        const cellBgColor = nextActionValue ?
-          valueColor(nextActionValue.value) :
-          '#f5f5f5';
-        const cellBorder = nextActionValue && nextActionValue.action === bestNextAction.action ?
-          '8px solid #006837' :
-          '0';
+        const cellBgColor = getCellBgColor(nextActionValue);
+        const cellBorder = getCellBorder(nextActionValue);
         return (
-          <Cell key={`board-cell-${i}`} style={{ backgroundColor: cellBgColor, border: cellBorder }}>
-            <CellLabel>{v}</CellLabel>
+          <Cell
+            key={`board-cell-${i}`}
+            style={{ backgroundColor: cellBgColor, border: cellBorder }}
+          >
+            <CellLabel>
+              {v}
+            </CellLabel>
             { nextActionValue &&
-              <ActionValue>{nextActionValue.value.toFixed(3)}</ActionValue>
+              <CellValue>
+                {nextActionValue.value.toFixed(3)}
+              </CellValue>
             }
           </Cell>
         );
       })}
     </Board>
   );
+
+  function getCellBgColor(nextActionValue) {
+    if (!nextActionValues) { return '#ffffff'; }
+
+    const valueColor = scaleLinear().domain([-1.0, 0.0, 1.0])
+      .interpolate(interpolateHcl)
+      .range([rgb('#a50026'), rgb('#ffffff'), rgb('#1a9850')]);
+    return nextActionValue ? valueColor(nextActionValue.value) : '#cccccc';
+  }
+
+  function getCellBorder(nextActionValue) {
+    return nextActionValue && nextActionValue.action === bestNextAction.action ?
+      '8px solid #006837' :
+      '0';
+  }
 };
 
 export default TicTacToeBoard;

@@ -10,7 +10,7 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: 800px;
   min-height: 100vh;
-  padding: 32px 32px;
+  padding: 32px 48px;
 `;
 const Title = styled.h1`
   font-family: 'IBM Plex Sans', sans-serif;
@@ -18,8 +18,8 @@ const Title = styled.h1`
   padding: 0 0 8px 0;
 `;
 const Description = styled.p`
-  padding: 0 0 32px 0;
   font-family: 'IBM Plex Serif', serif;
+  padding: 0 0 8px 0;
 `;
 
 class App extends Component {
@@ -36,7 +36,12 @@ class App extends Component {
     return (
       <Container>
         <Title>Tic Tac Toe</Title>
-        <Description>Next turn is <strong>X</strong> and the next action values are optimized to help <strong>X</strong> win.</Description>
+        <Description>Initial state and options</Description>
+        <TicTacToeBoard
+          gameState={initialState}
+          size="small"
+        />
+        <Description>The displayed action values are optimized to help <strong>X</strong> win. Next turn is <strong>X</strong>.</Description>
         <TicTacToeBoard
           gameState={initialState}
           nextActionValues={nextActionValues}
