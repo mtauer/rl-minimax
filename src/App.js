@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import ticTacToe, { X, O, E } from './ticTacToe';
+import ticTacToe from './ticTacToe';
 import minimax from './minimax';
 import TicTacToeBoard from './TicTacToeBoard';
+import { getInitialGameState } from './optionsRedux';
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -22,33 +25,30 @@ const Description = styled.p`
   padding: 0 0 8px 0;
 `;
 
-class App extends Component {
-  render() {
-    const initialState = {
-      board: [
-        E, O, E,
-        E, E, X,
-        E, E, E,
-      ],
-      currentPlayer: X,
-    };
-    const nextActionValues = minimax(ticTacToe, initialState);
-    return (
-      <Container>
-        <Title>Tic Tac Toe</Title>
-        <Description>Initial state and options</Description>
-        <TicTacToeBoard
-          gameState={initialState}
-          size="small"
-        />
-        <Description>The displayed action values are optimized to help <strong>X</strong> win. Next turn is <strong>X</strong>.</Description>
-        <TicTacToeBoard
-          gameState={initialState}
-          nextActionValues={nextActionValues}
-        />
-      </Container>
-    );
-  }
-}
+const App = ({ initialGameState }) => {
+  const nextActionValues = minimax(ticTacToe, initialGameState);
+  return (
+    <Container>
+      <Title>Tic Tac Toe</Title>
+      <Description>Initial state and options</Description>
+      <TicTacToeBoard
+        gameState={initialGameState}
+        size="small"
+      />
+      <Description>The displayed action values are optimized to help <strong>X</strong> win. Next turn is <strong>X</strong>.</Description>
+      <TicTacToeBoard
+        gameState={initialGameState}
+        nextActionValues={nextActionValues}
+      />
+    </Container>
+  );
+};
+App.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  initialGameState: PropTypes.object.isRequired,
+};
 
-export default App;
+const mapStateToProps = state => ({
+  initialGameState: getInitialGameState(state),
+});
+export default connect(mapStateToProps)(App);
