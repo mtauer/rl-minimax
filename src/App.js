@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import ticTacToe from './ticTacToe';
 import minimax from './minimax';
 import TicTacToeBoard from './TicTacToeBoard';
-import { getInitialGameState } from './optionsRedux';
+import { getInitialGameState, toggleBoardCellAction } from './optionsRedux';
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -25,7 +25,7 @@ const Description = styled.p`
   padding: 0 0 8px 0;
 `;
 
-const App = ({ initialGameState }) => {
+const App = ({ initialGameState, onBoardCellClick }) => {
   const nextActionValues = minimax(ticTacToe, initialGameState);
   return (
     <Container>
@@ -34,7 +34,7 @@ const App = ({ initialGameState }) => {
       <TicTacToeBoard
         gameState={initialGameState}
         size="small"
-        onCellClick={(index) => console.log('onCellClick', index)}
+        onCellClick={onBoardCellClick}
       />
       <Description>The displayed action values are optimized to help <strong>X</strong> win. Next turn is <strong>X</strong>.</Description>
       <TicTacToeBoard
@@ -47,9 +47,13 @@ const App = ({ initialGameState }) => {
 App.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   initialGameState: PropTypes.object.isRequired,
+  onBoardCellClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   initialGameState: getInitialGameState(state),
 });
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  onBoardCellClick: (index) => dispatch(toggleBoardCellAction(index)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(App);
