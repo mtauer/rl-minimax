@@ -61,7 +61,7 @@ const App = ({ initialGameState, minimaxOptions, onBoardCellClick, onOptionChang
   const bestNextAction = maxBy(nextActionValues, o => o.value);
   return (
     <Container>
-      <Title>Tic Tac Toe</Title>
+      <Title>Minimax for Tic-Tac-Toe</Title>
       <Section>
         <Description>
           The following minimax example was inspired by a <a href="https://medium.com/ml-everything/tic-tac-toe-and-connect-4-using-mini-max-deb25544f3b7" target="_blank">blog post</a> from Branko Blagojevic and by this <a href="https://github.com/danigb/minimax" target="_blank">repository</a> from danigb.<br /><br />

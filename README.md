@@ -1,1 +1,1 @@
-# rl-minimax
+# Minimax for Tic-Tac-Toe
