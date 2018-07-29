@@ -27,7 +27,7 @@ const Cell = styled.div`
   user-select: ${props => props.isClickable ? 'none' : 'inherit'};
 
   &:hover {
-    background: #f5f5f5;
+    background-color: ${props => props.isClickable ? '#f5f5f5' : 'transparent'};
   }
 `;
 const CellLabel = styled.div`

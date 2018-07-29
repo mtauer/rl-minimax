@@ -10,3 +10,16 @@ body {
   margin: 0;
   padding: 0;
 }
+
+strong {
+  color: #000000;
+}
+
+a[href] {
+  color: #3182bd;
+  text-decoration: none;
+}
+
+a[href]:hover {
+  text-decoration: underline;
+}
