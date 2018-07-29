@@ -16,14 +16,37 @@ const Container = styled.div`
   min-height: 100vh;
   padding: 32px 48px;
 `;
+const Row = styled.div`
+  display: flex;
+`;
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const Title = styled.h1`
   font-family: 'IBM Plex Sans', sans-serif;
   margin: 0;
-  padding: 0 0 8px 0;
+  padding: 0 0 32px 0;
 `;
 const Description = styled.p`
   font-family: 'IBM Plex Serif', serif;
   padding: 0 0 8px 0;
+`;
+const Label = styled.label`
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  padding: 0 0 6px 0;
+`;
+const Input = styled.input`
+  background-color: #f5f5f5;
+  border: 1px solid #f5f5f5;
+  border-radius: 3px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  margin: 0 0 16px 0;
+  max-width: 300px;
+  outline: 0;
+  padding: 4px 8px;
 `;
 
 const App = ({ initialGameState, minimaxOptions, onBoardCellClick }) => {
@@ -31,12 +54,22 @@ const App = ({ initialGameState, minimaxOptions, onBoardCellClick }) => {
   return (
     <Container>
       <Title>Tic Tac Toe</Title>
-      <Description>Initial state and options</Description>
-      <TicTacToeBoard
-        gameState={initialGameState}
-        size="small"
-        onCellClick={onBoardCellClick}
-      />
+      <Row>
+        <Column>
+          <Label>Initial State:</Label>
+          <TicTacToeBoard
+            gameState={initialGameState}
+            size="small"
+            onCellClick={onBoardCellClick}
+          />
+        </Column>
+        <Column>
+          <Label>Time Penalty:</Label>
+          <Input defaultValue={minimaxOptions.timePenalty}/>
+          <Label>Suboptimal Weight:</Label>
+          <Input defaultValue={minimaxOptions.suboptimalWeight}/>
+        </Column>
+      </Row>
       <Description>The displayed action values are optimized to help <strong>X</strong> win. Next turn is <strong>X</strong>.</Description>
       <TicTacToeBoard
         gameState={initialGameState}

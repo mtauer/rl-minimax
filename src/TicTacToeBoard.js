@@ -14,6 +14,7 @@ const Board = styled.div`
   grid-auto-rows: ${props => props.size === 'small' ? '30px' : '100px'};
   grid-gap: 1px;
   justify-items: stretch;
+  margin: 0 48px 0 0;
   padding: 0 0 32px 0;
   width: ${props => props.size === 'small' ? '90px' : '300px'};
 `;
