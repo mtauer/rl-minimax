@@ -31,10 +31,11 @@ export default function minimax(game, state, maximize = true, maxDepth = 9, opti
       return {
         action,
         states: [ nextState, ...optimalDeepStates],
-        value:
+        value: maximize ?
           nextValue +
-          (1 - options.suboptimalWeight) * optimalDeepValue +
-          options.suboptimalWeight * suboptimalDeepValue,
+            (1 - options.suboptimalWeight) * optimalDeepValue +
+            options.suboptimalWeight * suboptimalDeepValue :
+          nextValue + optimalDeepValue,
       };
     });
 }
