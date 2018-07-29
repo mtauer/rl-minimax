@@ -32,7 +32,7 @@ const Column = styled.div`
 const Title = styled.h1`
   font-family: 'IBM Plex Sans', sans-serif;
   margin: 0;
-  padding: 0 0 32px 0;
+  padding: 0 0 16px 0;
 `;
 const Description = styled.p`
   font-family: 'IBM Plex Serif', serif;
@@ -64,8 +64,8 @@ const App = ({ initialGameState, minimaxOptions, onBoardCellClick, onOptionChang
       <Title>Minimax for Tic-Tac-Toe</Title>
       <Section>
         <Description>
-          The following minimax example was inspired by a <a href="https://medium.com/ml-everything/tic-tac-toe-and-connect-4-using-mini-max-deb25544f3b7" target="_blank">blog post</a> from Branko Blagojevic and by this <a href="https://github.com/danigb/minimax" target="_blank">repository</a> from danigb.<br /><br />
-        It extends the normal <a href="https://en.wikipedia.org/wiki/Minimax" target="_blank">Minimax</a> algorithm by a time penalty and a possiblity of sub-optimal plays from <strong>O</strong>. By doing so, we try to finish early and to benefit as much as possible from <strong>O</strong>s potential mistakes.
+          The following minimax example was inspired by a <a href="https://medium.com/ml-everything/tic-tac-toe-and-connect-4-using-mini-max-deb25544f3b7" target="_blank" rel="noopener noreferrer">blog post</a> from Branko Blagojevic and by this <a href="https://github.com/danigb/minimax" target="_blank" rel="noopener noreferrer">repository</a> from danigb.<br /><br />
+        It extends the normal <a href="https://en.wikipedia.org/wiki/Minimax" target="_blank" rel="noopener noreferrer">Minimax</a> algorithm by a time penalty and a possibility of sub-optimal plays from <strong>O</strong>. By doing so, we try to finish early and also to benefit as much as possible from <strong>O</strong>s potential mistakes.
         </Description>
       </Section>
       <Section>
