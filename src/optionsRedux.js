@@ -8,6 +8,10 @@ const initialState = {
       E, E, E,
     ],
     currentPlayer: X,
+  },
+  minimaxOptions: {
+    suboptimalWeight: 0.05,
+    timePenalty: -0.01,
   }
 }
 
@@ -38,4 +42,8 @@ export default function optionsReducer(state = initialState, action) {
 
 export function getInitialGameState(state) {
   return state.initialGameState;
+}
+
+export function getMinimaxOptions(state) {
+  return state.minimaxOptions;
 }

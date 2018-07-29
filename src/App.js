@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import ticTacToe from './ticTacToe';
 import minimax from './minimax';
 import TicTacToeBoard from './TicTacToeBoard';
-import { getInitialGameState, toggleBoardCellAction } from './optionsRedux';
+import { getInitialGameState, getMinimaxOptions, toggleBoardCellAction,
+} from './optionsRedux';
 
 const Container = styled.div`
   background-color: #ffffff;
@@ -25,8 +26,8 @@ const Description = styled.p`
   padding: 0 0 8px 0;
 `;
 
-const App = ({ initialGameState, onBoardCellClick }) => {
-  const nextActionValues = minimax(ticTacToe, initialGameState);
+const App = ({ initialGameState, minimaxOptions, onBoardCellClick }) => {
+  const nextActionValues = minimax(ticTacToe, initialGameState, minimaxOptions);
   return (
     <Container>
       <Title>Tic Tac Toe</Title>
@@ -47,11 +48,14 @@ const App = ({ initialGameState, onBoardCellClick }) => {
 App.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   initialGameState: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  minimaxOptions: PropTypes.object.isRequired,
   onBoardCellClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   initialGameState: getInitialGameState(state),
+  minimaxOptions: getMinimaxOptions(state),
 });
 const mapDispatchToProps = dispatch => ({
   onBoardCellClick: (index) => dispatch(toggleBoardCellAction(index)),

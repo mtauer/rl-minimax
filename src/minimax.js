@@ -2,21 +2,17 @@ import minBy from 'lodash/minBy';
 import maxBy from 'lodash/maxBy';
 import meanBy from 'lodash/meanBy';
 
-const defaultOptions = {
-  suboptimalWeight: 0.05,
-}
-
-export default function minimax(game, state, maximize = true, maxDepth = 9, options = defaultOptions) {
+export default function minimax(game, state, options, maximize = true, maxDepth = 9) {
   const actions = game.getValidActions(state);
   return actions
     .map(action => {
       const nextState = game.performAction(state, action);
-      const nextValue = game.getValue(nextState);
+      const nextValue = game.getValue(nextState, options.timePenalty);
       let optimalDeepStates = [];
       let optimalDeepValue = 0;
       let suboptimalDeepValue = 0;
       if (maxDepth > 0 && !game.hasFinished(nextState)) {
-        const deepMinimaxItems = minimax(game, nextState, !maximize, maxDepth - 1, options);
+        const deepMinimaxItems = minimax(game, nextState, options, !maximize, maxDepth - 1);
         const deepMinimax = maximize ?
           minBy(deepMinimaxItems, o => o.value) :
           maxBy(deepMinimaxItems, o => o.value);

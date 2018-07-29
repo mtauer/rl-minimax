@@ -13,8 +13,6 @@ const initialState = {
   currentPlayer: X,
 };
 
-const timePenalty = -0.01;
-
 export function getValidActions(state = initialState) {
   return state.board
     .map((v, i) => v === E ? { index: i } : null)
@@ -31,7 +29,7 @@ export function performAction(state = initialState, action) {
 
 }
 
-export function getValue(state = initialState) {
+export function getValue(state = initialState, timePenalty = 0) {
   const winner = getWinner(state);
   return winner === X ? 1 : winner === O ? -1 : timePenalty;
 }
