@@ -7,6 +7,7 @@ import ticTacToe from './ticTacToe';
 import minimax from './minimax';
 import TicTacToeBoard from './TicTacToeBoard';
 import { getInitialGameState, getMinimaxOptions, toggleBoardCellAction,
+  setMinimaxOptionsAction,
 } from './optionsRedux';
 
 const Container = styled.div`
@@ -49,7 +50,7 @@ const Input = styled.input`
   padding: 4px 8px;
 `;
 
-const App = ({ initialGameState, minimaxOptions, onBoardCellClick }) => {
+const App = ({ initialGameState, minimaxOptions, onBoardCellClick, onOptionChange }) => {
   const nextActionValues = minimax(ticTacToe, initialGameState, minimaxOptions);
   return (
     <Container>
@@ -65,9 +66,15 @@ const App = ({ initialGameState, minimaxOptions, onBoardCellClick }) => {
         </Column>
         <Column>
           <Label>Time Penalty:</Label>
-          <Input defaultValue={minimaxOptions.timePenalty}/>
+          <Input
+            defaultValue={minimaxOptions.timePenalty}
+            onChange={e => onOptionChange('timePenalty', e)}
+          />
           <Label>Suboptimal Weight:</Label>
-          <Input defaultValue={minimaxOptions.suboptimalWeight}/>
+          <Input
+            defaultValue={minimaxOptions.suboptimalWeight}
+            onChange={e => onOptionChange('suboptimalWeight', e)}
+          />
         </Column>
       </Row>
       <Description>The displayed action values are optimized to help <strong>X</strong> win. Next turn is <strong>X</strong>.</Description>
@@ -84,6 +91,7 @@ App.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   minimaxOptions: PropTypes.object.isRequired,
   onBoardCellClick: PropTypes.func.isRequired,
+  onOptionChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -92,5 +100,11 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   onBoardCellClick: (index) => dispatch(toggleBoardCellAction(index)),
+  onOptionChange: (optionName, e) => {
+    const value = parseFloat(e.target.value);
+    if (isFinite(value)) {
+      dispatch(setMinimaxOptionsAction({ [optionName]: value }));
+    }
+  },
 });
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -17,9 +17,14 @@ const initialState = {
 
 const PREFIX = 'options/';
 export const TOGGLE_BOARD_CELL = `${PREFIX}TOGGLE_BOARD_CELL`;
+export const SET_MINIMAX_OPTIONS = `${PREFIX}SET_MINIMAX_OPTIONS`;
 
 export function toggleBoardCellAction(index) {
   return { type: TOGGLE_BOARD_CELL, index };
+}
+
+export function setMinimaxOptionsAction(options) {
+  return { type: SET_MINIMAX_OPTIONS, options };
 }
 
 export default function optionsReducer(state = initialState, action) {
@@ -33,6 +38,16 @@ export default function optionsReducer(state = initialState, action) {
         initialGameState: {
           ...state.initialGameState,
           board: newBoard,
+        }
+      };
+    }
+    case SET_MINIMAX_OPTIONS: {
+      const { options } = action;
+      return {
+        ...state,
+        minimaxOptions: {
+          ...state.minimaxOptions,
+          ...options,
         }
       };
     }
